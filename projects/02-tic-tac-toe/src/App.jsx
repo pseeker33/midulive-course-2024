@@ -1,57 +1,30 @@
 import { useState } from 'react'
-import './App.css'
-
-const TURNS = {
-  X: 'x',
-  O: 'o'
-}
-
-const Square = ({ children, isSelected, updateBoard, index }) => {
-  const className = `square ${isSelected ? 'is-selected' : ''}`
-  const handleClick =  () => {
-    updateBoard(index)
-  }
-
-  return  (
-    <div onClick={handleClick} className={className}>
-      {children}
-    </div>
-  )
-}
-
-const WINNER_COMBOS = [
-  [0,1,2],
-  [3,4,5],
-  [6,7,8],
-  [0,3,6],
-  [1,4,7],
-  [2,5,8],
-  [0,4,8],
-  [2,4,6]
-]
+import { Square } from './components/Square'
+import { TURNS } from './logic/constants'
+import { checkWinnerFrom } from './logic/board'
+import confetti from "canvas-confetti"
+import { saveGametoStorage, resetGameStorage } from './logic/storage'
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null))
 
-  const [turn, setTurn] = useState(TURNS.X)
+  const [board, setBoard] = useState( () => { 
+    // Check if there is a board in local storage
+    const boardFromStorage = window.localStorage.getItem('board')
+    if (boardFromStorage) return JSON.parse(boardFromStorage)
+    return Array(9).fill(null)
+  })
+
+  
+  const [turn, setTurn] = useState(() => {
+    const turnFromStorage = window.localStorage.getItem('turn')
+    return turnFromStorage ?? TURNS.X
+  } )
 
   // null means no winner, false means draw
   const [winner, setWinner] = useState(null)
-
-  const checkWinner =(boardToCheck) => {
-    // Check winner outcomes to find winner player
-    for (const combo of WINNER_COMBOS) {
-      const [a, b, c] = combo
-      if (
-        boardToCheck[a] &&
-        boardToCheck[a] === boardToCheck[b] &&
-        boardToCheck[a] === boardToCheck[c]
-      ) {
-        return board[a]        
-      }
-    }
-    // If no winner
-    return null
+  
+  const checkEndGame = (newBoard) => {
+    return newBoard.every((square) => square !== null)
   }
 
 
@@ -68,27 +41,47 @@ function App() {
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
 
+    // Save game to local storage
+    saveGametoStorage({
+      board: newBoard, 
+      turn: newTurn
+    })
+
     // Check winner
-    const newWinner = checkWinner(newBoard)
+    const newWinner = checkWinnerFrom(newBoard)
     if (newWinner) {
+      confetti()
       setWinner(newWinner)      
+    } else if (checkEndGame(newBoard)) {
+      setWinner(false)
     }
+  }
+
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(TURNS.X)
+    setWinner(null)
+
+    resetGameStorage()
+    
   }
 
   return (
     <main className='board'>
       <h1>Tic tac toe</h1>
+      <button onClick={resetGame}>Reset game?</button>
       <section className='game'>
         {
-          board.map((_, index) => {
+          board.map((square, index) => {
             return (
               <Square key={index} index={index} updateBoard={updateBoard}>
-                {board[index]}
+                {square}
               </Square>
             )
           })
         }
       </section>
+
       <section className='turn'>
         <Square isSelected ={turn === TURNS.X}> 
           {TURNS.X}
@@ -97,6 +90,29 @@ function App() {
           {TURNS.O}
         </Square>
       </section>
+      
+      {/* Conditional rendering */}
+      {
+        winner !== null && (
+          <section className='winner'>
+            <div className='text'>
+              <h2>
+                {
+                  winner === false ? 'Draw!' : 'Won!:'
+                }
+              </h2>
+              
+              <header className='win'>
+                {winner && <Square>{winner}</Square>}
+              </header>
+
+              <footer>
+                <button onClick={resetGame}>Play again?</button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </main>
   )
 }  
