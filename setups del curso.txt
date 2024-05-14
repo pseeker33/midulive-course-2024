@@ -1,0 +1,3 @@
+midulive-course-2024
+	Instalar Standar js como dependencia de desarrollo:
+		npm install standard -D
