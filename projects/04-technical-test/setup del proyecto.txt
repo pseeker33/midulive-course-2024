@@ -1,0 +1,32 @@
+https://www.youtube.com/watch?v=XYpadB4VadY&list=PLUofhDIg_38q4D0xNWp7FEHOTcZhjWJ29&index=3
+
+Inicializar el proyecto usando solo Vannilla de Vite  
+	npm create vite@latest
+		Vanilla > Javascript
+	Ingresar al proyecto e instalar el pluging de React para Vite con la version exacta
+		npm install @vitejs/plugin-react -E
+	Instalar las dependenicas de npm, una es la biblioteca de React y la otra tiene los bindings con el navegador:
+		npm install react react-dom -E
+	Crear el archivo de configuracion de vite:
+		Crear vite.config.js y escribir dentro:
+			import { defineConfig } from 'vite'
+			import react from '@vitejs/plugin-react'
+
+			export default defineConfig({
+			plugins: [react()]
+			})
+	Ronombrar main.js a main.jsx, ingresar a index.html y hacer lo mismo en el script
+	Configurar main.jsx:
+		import { createRoot } from 'react-dom/client'
+
+		const root = createRoot(document.getElementById('app'))
+
+		root.render(<h1>'Hello World'</h1>) 
+	Levantar el servidor y ver que todo este ok:
+		npm run dev
+	Instalar y añadir linter al package.json:
+		npm install standard -D
+		Agregar al final del package,json:
+				"eslintConfig": {
+					"extends": "./node_modules/standard/eslintrc.json"
+				}

@@ -1,0 +1,5 @@
+https://www.youtube.com/watch?v=GOEiMwDJ3lc&list=PLUofhDIg_38q4D0xNWp7FEHOTcZhjWJ29&index=9
+
+Instalar la libreria para manejar el debounce del input search
+	npm install just-debounce-it -E
+	

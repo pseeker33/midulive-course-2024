@@ -1,14 +1,17 @@
+:root {
+  --dark-primary:#000000  ;
+}
 body {
+    display: grid;    
     margin: 0;
-    background: #222;
+    background: var(--dark-primary);
     font-family: system-ui;
-    display: grid;
     place-content: center;
     min-height: 100vh;
 }
 
-.App {
+.appContainer {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 40px; 
   }

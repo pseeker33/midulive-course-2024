@@ -1,0 +1,9 @@
+midulive-course-2024
+	Crear un proyecto con Vite
+		Crear e ingresar a la carpeta projects
+			npm create vite@latest
+	
+	Instalar canvas-confetti:
+		npm install canvas-confetti -E
+
+	

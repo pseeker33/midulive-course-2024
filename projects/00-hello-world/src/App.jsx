@@ -1,56 +1,58 @@
+
 import './App.css'
 import { TwitterFollowCard } from './TwitterFollowCard.jsx'
 
-const users = [
+const USERS = [
     {
-      userName: 'JMilei',
-      name: 'Javier Milei',
-      isFollowing: true
+      twName: 'Javier Milei',
+      twUserName: 'JMilei',
+      twIsFollowing: false
     },
     {
-      userName: 'jordanbpeterson',
-      name: 'Jordan B Peterson',
-      isFollowing: false
+      twName: 'Jordan B Peterson',
+      twUserName: 'jordanbpeterson',
+      twIsFollowing: false
     },
     {
-      userName: 'elonmusk',
-      name: 'Elon Musk',
-      isFollowing: true
+      twName: 'Elon Musk',
+      twUserName: 'elonmusk',
+      twIsFollowing: false
     }
 ]
 
 export function App () {
     return (
-        <section className='App'>
-            {
-                users.map(({ userName, name, isFollowing }) => (
-                <TwitterFollowCard
-                    key={userName}
-                    userName={userName}
-                    initialIsFollowing={isFollowing}
-                >
-                    {name}
-                </TwitterFollowCard>
-                ))
-            }
+        <section className='tw-followCard-container'>
+          <h1 className="tw-followCard-title">Who to follow</h1>          
+          {
+            USERS.map(({ twUserName, twName, twIsFollowing }) => 
+            <TwitterFollowCard
+                key={twUserName}
+                userName={twUserName}
+                initialIsFollowing={twIsFollowing}
+            >
+                {twName}
+            </TwitterFollowCard>
+            )
+          }
         </section>
     )
 }
 
-            { /*
-            <TwitterFollowCard userName="JMilei" initialIsFollowing>
-                Javier Milei
-            </TwitterFollowCard>
-            <TwitterFollowCard userName="jordanbpeterson" initialIsFollowing={false}>
-                Jordan B Peterson
-            </TwitterFollowCard>
-            <TwitterFollowCard userName="elonmusk" initialIsFollowing>
-                Elon Musk
-            </TwitterFollowCard>
 
-            */}
+{ /*
+  <TwitterFollowCard userName="JMilei" initialIsFollowing>
+      Javier Milei
+  </TwitterFollowCard>
+  <TwitterFollowCard userName="jordanbpeterson" initialIsFollowing={false}>
+      Jordan B Peterson
+  </TwitterFollowCard>
+  <TwitterFollowCard userName="elonmusk" initialIsFollowing>
+      Elon Musk
+  </TwitterFollowCard>
 
-            { /*<TwitterFollowCard name="Javier Milei" userName="JMilei" initialIsFollowing/> */}
-            { /*<TwitterFollowCard name="Jordan B Peterson" userName="jordanbpeterson" initialIsFollowing={false}/> */}
-            {/* <TwitterFollowCard name="Elon Musk" userName="elonmusk" initialIsFollowing/> */}
- 
+  */}
+
+  { /*<TwitterFollowCard name="Javier Milei" userName="JMilei" initialIsFollowing/> */}
+  { /*<TwitterFollowCard name="Jordan B Peterson" userName="jordanbpeterson" initialIsFollowing={false}/> */}
+  {/* <TwitterFollowCard name="Elon Musk" userName="elonmusk" initialIsFollowing/> */}

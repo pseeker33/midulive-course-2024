@@ -1,8 +1,15 @@
 midulive-course-2024
-	Instalar Standar js como dependencia de desarrollo:
+	Crear un proyecto con Vite
+		Crear e ingresar a la carpeta projects
+			npm create vite@latest
+	
+	Instalar Standard js como dependencia de desarrollo:
 		npm install standard -D
 		Adicionar al package.json:
 			"eslintConfig": {
 				"extends": "./node_modules/standard/eslintrc.json"
 			}
+			
+	
 	Agregar node_modules y package-lock.json al gitignore
+		
