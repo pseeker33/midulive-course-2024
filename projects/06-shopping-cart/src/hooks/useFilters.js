@@ -11,6 +11,7 @@ export function useFilters () {
         (
           filters.category === 'all' ||
           product.category === filters.category
+          
         )
       )
     })
