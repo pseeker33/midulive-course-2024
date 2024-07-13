@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { saveGametoStg, removeGameInStg } from "../logic/gameStorage";
-import { checkWinner, checkEndGame } from "../logic/checkGameStatus";
+import { checkWinner, checkDraw } from "../logic/checkGameStatus";
 import { TURNS, EMPTY_BOARD } from "../logic/constants";
 import confetti from "canvas-confetti";
 
@@ -37,7 +37,7 @@ export const useGameState = () => {
     if (newWinner) {
       confetti();
       setWinner(newWinner);
-    } else if (checkEndGame(newBoard)) {
+    } else if (checkDraw(newBoard)) {
       setWinner(false);
     }
   };

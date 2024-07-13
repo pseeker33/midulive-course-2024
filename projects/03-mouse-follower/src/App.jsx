@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function App() {
+export function App() {
   const [enabled, setEnabled] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -11,7 +11,6 @@ function App() {
     const handleMove = (event) => {
       const { clientX, clientY } = event;
       setPosition({ x: clientX, y: clientY });
-      console.log("handleMove", { clientX, clientY });
     };
     if (enabled) {
       window.addEventListener("pointermove", handleMove);
@@ -50,4 +49,3 @@ function App() {
   );
 }
 
-export default App;
