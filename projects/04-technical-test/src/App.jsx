@@ -1,5 +1,5 @@
-import { useCatImage } from "./hooks/useCatImage";
 import { useCatFact } from "./hooks/useCatFact";
+import { useCatImage } from "./hooks/useCatImage";
 import "./App.css";
 
 //const CAT_PREFIX_IMAGE_URL = "https://cataas.com";
@@ -16,7 +16,6 @@ export function App() {
   return (
     <main>
       <h1>Kittens App</h1>
-
       <button onClick={handleclick}>Get a new fact</button>
       {fact && <p>{fact}</p>}
       {imageUrl && (
